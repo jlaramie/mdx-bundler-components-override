@@ -5,8 +5,12 @@ import { useMemo } from "react";
 import { getMDXComponent } from "mdx-bundler/client/index";
 import styles from "../styles/Home.module.css";
 import path from "path";
+import { MDXProvider } from "@mdx-js/react";
 
 const components = {
+  "jsx.img": () => {
+    return <b>This Does Not Work</b>;
+  },
   img: () => {
     return <b>This Does Not Work</b>;
   },
@@ -29,6 +33,11 @@ const Home: NextPage<{ code: any }> = ({ code }) => {
       </Head>
 
       <main className={styles.main}>
+        <h1>With Provider Wrap</h1>
+        <MDXProvider components={components}>
+          <MdxComponent components={components} />
+        </MDXProvider>
+        <h1>Without Provider Wrap</h1>
         <MdxComponent components={components} />
       </main>
     </div>
@@ -58,10 +67,17 @@ export async function getStaticProps() {
   const result = await bundleMDX({
     source: `
       <div>
-          <img src="test.png" />
-          <Img src="test.png" />
+          does not override: <img src="test.png" />
+          <br />
+          does override: <Img src="test.png" />
       </div>
     `,
+    xdmOptions: (options) => {
+      return {
+        ...options,
+        providerImportSource: "@mdx-js/react",
+      };
+    },
   });
 
   return {
