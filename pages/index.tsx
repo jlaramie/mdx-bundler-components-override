@@ -72,7 +72,7 @@ export async function getStaticProps() {
           does override: <Img src="test.png" />
       </div>
     `,
-    xdmOptions: (options) => {
+    mdxOptions: (options) => {
       return {
         ...options,
         providerImportSource: "@mdx-js/react",
