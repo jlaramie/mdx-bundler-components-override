@@ -1,0 +1,19 @@
+diff --git a/node_modules/@mdx-js/mdx/lib/plugin/recma-jsx-rewrite.js b/node_modules/@mdx-js/mdx/lib/plugin/recma-jsx-rewrite.js
+index e1d8dbf..919d911 100644
+--- a/node_modules/@mdx-js/mdx/lib/plugin/recma-jsx-rewrite.js
++++ b/node_modules/@mdx-js/mdx/lib/plugin/recma-jsx-rewrite.js
+@@ -181,13 +181,7 @@ export function recmaJsxRewrite(options = {}) {
+               }
+             }
+           }
+-          // @ts-expect-error Allow fields passed through from mdast through hast to
+-          // esast.
+-          else if (node.data && node.data._mdxExplicitJsx) {
+-            // Do not turn explicit JSX into components from `_components`.
+-            // As in, a given `h1` component is used for `# heading` (next case),
+-            // but not for `<h1>heading</h1>`.
+-          } else {
++          else {
+             const id = name.name
+ 
+             if (!fnScope.tags.includes(id)) {
